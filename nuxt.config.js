@@ -1,3 +1,4 @@
+const bodyParser = require('body-parser')
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 const pkg = require('./package')
 
@@ -53,6 +54,7 @@ module.exports = {
     // See https://github.com/nuxt-community/axios-module#options
   },
   serverMiddleware: [
+    bodyParser.json(),
     // API middleware
     '~/api/index.js'
   ],

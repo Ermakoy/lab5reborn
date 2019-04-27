@@ -25,6 +25,9 @@
         <v-list-tile-action>
           <v-btn :to="`/${note.id}`" :nuxt="true" :color="'teal'">Edit</v-btn>
         </v-list-tile-action>
+        <v-list-tile-action>
+          <v-btn :color="'teal'" @click="deletePost(note.id)">Delete</v-btn>
+        </v-list-tile-action>
       </v-list-tile>
     </v-list>
   </div>
@@ -43,6 +46,9 @@ export default {
   methods: {
     createNote() {
       axios.post('/api/notes')
+    },
+    deletePost(id) {
+      axios.delete(`/api/notes/${id}`)
     }
   }
 }

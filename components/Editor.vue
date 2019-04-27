@@ -1,18 +1,23 @@
 <template>
-  <div id="editor">
-    <textarea :value="input" @input="update"></textarea>
-    <div style="height: 100%" v-html="compiledMarkdown"></div>
+  <div>
+    <v-btn @click="sendNote">Save</v-btn>
+    <div id="editor">
+      <textarea :value="input" @input="update"></textarea>
+      <div style="height: 100%" v-html="compiledMarkdown"></div>
+    </div>
   </div>
 </template>
 <script>
 import marked from 'marked'
+import axios from 'axios'
 import { debounce } from 'lodash-es'
 
 export default {
   props: ['note'],
   data() {
+    console.log('in data')
     return {
-      input: this.note.note || ''
+      input: (this.note && this.note.note) || ''
     }
   },
   computed: {
@@ -23,7 +28,10 @@ export default {
   methods: {
     update: debounce(function(e) {
       this.input = e.target.value
-    }, 300)
+    }, 300),
+    sendNote() {
+      axios.put(`/api/notes/${this.$route.params.id}`, { note: this.input })
+    }
   }
 }
 </script>

@@ -27,10 +27,9 @@ router.post('/notes', function(req, res, next) {
 router.put('/notes/:id', function(req, res, next) {
   const { id } = req.params
   const { note } = req.body
-  console.log(req.body)
-  Note.updateOne({ id }, { note })
-    .then(res.json)
-    .catch(res.json)
+  Note.updateOne({ id }, { note }, null, (err, result) =>
+    res.json(err || result)
+  )
 })
 
 router.delete('/notes/:id', function(req, res, next) {
