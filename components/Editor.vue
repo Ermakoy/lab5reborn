@@ -1,7 +1,7 @@
 <template>
   <div id="editor">
     <textarea :value="input" @input="update"></textarea>
-    <div v-html="compiledMarkdown"></div>
+    <div style="height: 100%" v-html="compiledMarkdown"></div>
   </div>
 </template>
 <script>
@@ -9,9 +9,10 @@ import marked from 'marked'
 import { debounce } from 'lodash-es'
 
 export default {
+  props: ['note'],
   data() {
     return {
-      input: '# hello'
+      input: this.note.note || ''
     }
   },
   computed: {

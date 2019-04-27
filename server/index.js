@@ -2,6 +2,7 @@ const express = require('express')
 const consola = require('consola')
 const mongoose = require('mongoose')
 const { Nuxt, Builder } = require('nuxt')
+const bodyParser = require('body-parser')
 const app = express()
 
 // Import and Set Nuxt.js options
@@ -24,7 +25,13 @@ async function start() {
 
   // Give nuxt middleware to express
   app.use(nuxt.render)
-
+  app.use(bodyParser.json()) // for parsing application/json
+  app.use(
+    bodyParser.urlencoded({
+      // to support URL-encoded bodies
+      extended: true
+    })
+  )
   // Listen the server
   app.listen(port, host)
   consola.ready({
