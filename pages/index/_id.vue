@@ -1,5 +1,5 @@
 <template>
-  <Editor :key="note ? note.id : 1337" :note="note"></Editor>
+  <Editor :key="note ? note.id : 'unknown'" :note="note"></Editor>
 </template>
 
 <script>
@@ -10,15 +10,12 @@ export default {
   components: {
     Editor
   },
-  props: {
-    // eslint-disable-next-line
-    source: String
-  },
   data: function() {
     return { note: {} }
   },
   watch: {
     $route(from, to) {
+      console.log('change route to ', this.$route, this.$route.params.id)
       axios.get(`/api/notes/${this.$route.params.id}`).then(({ data }) => {
         this.note = data
       })

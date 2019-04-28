@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 100%">
     <v-btn @click="sendNote">Save</v-btn>
     <div id="editor">
       <textarea :value="input" @input="update"></textarea>

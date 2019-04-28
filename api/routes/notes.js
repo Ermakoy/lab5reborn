@@ -1,4 +1,3 @@
-import { uniqueId } from 'lodash-es'
 import Note from '../../models/Note'
 const { Router } = require('express')
 const router = Router()
@@ -11,13 +10,20 @@ router.get('/notes/:id', function(req, res, next) {
   const { id } = req.params
 
   Note.findOne(
-    { id: Number(id) },
+    { id },
     (err, result) => console.log(result) || res.json(err || result)
   )
 })
 
 router.post('/notes', function(req, res, next) {
-  const newNote = new Note({ id: uniqueId(), note: '' })
+  const newNote = new Note({
+    id: String(
+      Math.random()
+        .toString(36)
+        .substring(2, 7)
+    ),
+    note: ''
+  })
   newNote
     .save()
     .then(result => console.log(result) || res.json(result))
